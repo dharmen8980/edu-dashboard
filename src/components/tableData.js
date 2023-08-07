@@ -1,13 +1,22 @@
 import React from "react";
-import {Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, getKeyValue, Spinner} from "@nextui-org/react";
-import {useAsyncList} from "@react-stately/data";
+import {
+  Table,
+  TableHeader,
+  TableColumn,
+  TableBody,
+  TableRow,
+  TableCell,
+  getKeyValue,
+  Spinner,
+} from "@nextui-org/react";
+import { useAsyncList } from "@react-stately/data";
 
 export const TableData = () => {
   const [isLoading, setIsLoading] = React.useState(true);
 
   let list = useAsyncList({
-    async load({signal}) {
-      let res = await fetch('https://swapi.py4e.com/api/people/?search', {
+    async load({ signal }) {
+      let res = await fetch("https://swapi.py4e.com/api/people/?search", {
         signal,
       });
       let json = await res.json();
@@ -17,12 +26,13 @@ export const TableData = () => {
         items: json.results,
       };
     },
-    async sort({items, sortDescriptor}) {
+    async sort({ items, sortDescriptor }) {
       return {
         items: items.sort((a, b) => {
           let first = a[sortDescriptor.column];
           let second = b[sortDescriptor.column];
-          let cmp = (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
+          let cmp =
+            (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
 
           if (sortDescriptor.direction === "descending") {
             cmp *= -1;
@@ -37,6 +47,7 @@ export const TableData = () => {
   return (
     <Table
       aria-label="Example table with client side sorting"
+      removeWrapper
       sortDescriptor={list.sortDescriptor}
       onSortChange={list.sort}
       classNames={{
@@ -46,30 +57,62 @@ export const TableData = () => {
       selectionMode="single"
     >
       <TableHeader>
-        <TableColumn key="name" allowsSorting className="bg-sky-600 text-white">
+        <TableColumn
+          key="name"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
           University
         </TableColumn>
-        <TableColumn key="height" allowsSorting className="bg-sky-600 text-white">
-          Semester(Fall/Spring)
+        <TableColumn
+          key="height"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
+          Semester
         </TableColumn>
-        <TableColumn key="mass" allowsSorting className="bg-sky-600 text-white">
+        <TableColumn
+          key="mass"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
           Fee ($)
         </TableColumn>
-        <TableColumn key="birth_year" allowsSorting className="bg-sky-600 text-white">
+        <TableColumn
+          key="mass"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
+          Username
+        </TableColumn>
+        <TableColumn
+          key="mass"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
+          Password
+        </TableColumn>
+        <TableColumn
+          key="birth_year"
+          allowsSorting
+          className="bg-sky-600 text-white text-md"
+        >
           Status
         </TableColumn>
       </TableHeader>
-      <TableBody 
-        items={list.items} 
+      <TableBody
+        items={list.items}
         isLoading={isLoading}
         loadingContent={<Spinner label="Loading..." />}
       >
         {(item) => (
           <TableRow key={item.name}>
-            {(columnKey) => <TableCell>{getKeyValue(item, columnKey)}</TableCell>}
+            {(columnKey) => (
+              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+            )}
           </TableRow>
         )}
       </TableBody>
     </Table>
   );
-}
+};

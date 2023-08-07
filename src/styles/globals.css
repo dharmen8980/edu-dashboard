@@ -10,7 +10,7 @@ p {
 }
 
 body {
-  @apply max-w-7xl px-6 mx-auto;
+  @apply max-w-7xl mx-auto;
 }
 
 .gradient {

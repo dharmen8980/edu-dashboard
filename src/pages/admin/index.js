@@ -100,9 +100,6 @@ export default function App() {
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small capitalize">{cellValue}</p>
-            <p className="text-bold text-tiny capitalize text-default-400">
-              {user.team}
-            </p>
           </div>
         );
       case "status":
@@ -122,7 +119,7 @@ export default function App() {
             <Dropdown>
               <DropdownTrigger>
                 <Button isIconOnly size="sm" variant="light">
-                  <VerticalDotsIcon className="text-default-300" />
+                  <VerticalDotsIcon className="text-default-500" />
                 </Button>
               </DropdownTrigger>
               <DropdownMenu>
@@ -209,7 +206,7 @@ export default function App() {
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            Total {users && users.length} users
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:

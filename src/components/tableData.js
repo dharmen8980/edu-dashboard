@@ -7,109 +7,102 @@ import {
   TableRow,
   TableCell,
   getKeyValue,
-  Spinner,
 } from "@nextui-org/react";
-import { useAsyncList } from "@react-stately/data";
+
+const rows = [
+  {
+    key: "1",
+    university: "University of Toronto",
+    semester: "Fall 2024",
+    fee: "100",
+    username: "admin",
+    password: "admin",
+    status: "Pending",
+  },
+  {
+    key: "2",
+    university: "University of Toronto",
+    semester: "Fall 2024",
+    fee: "100",
+    username: "admin",
+    password: "admin",
+    status: "Pending",
+  },
+  {
+    key: "3",
+    university: "University of Toronto",
+    semester: "Fall 2024",
+    fee: "100",
+    username: "admin",
+    password: "admin",
+    status: "Received",
+  },
+  {
+    key: "4",
+    university: "University of Toronto",
+    semester: "Fall 2024",
+    fee: "100",
+    username: "admin",
+    password: "admin",
+    status: "Pending",
+  },
+  {
+    key: "5",
+    university: "University of Toronto",
+    semester: "Fall 2024",
+    fee: "100",
+    username: "admin",
+    password: "admin",
+    status: "Active",
+  },
+];
+
+const columns = [
+  {
+    key: "university",
+    label: "UNIVERSITY",
+  },
+  {
+    key: "semester",
+    label: "SEMESTER",
+  },
+  {
+    key: "fee",
+    label: "FEE ($)",
+  },
+  {
+    key: "username",
+    label: "USERNAME",
+  },
+  {
+    key: "password",
+    label: "PASSWORD",
+  },
+  {
+    key: "status",
+    label: "STATUS",
+  },
+];
 
 export const TableData = () => {
-  const [isLoading, setIsLoading] = React.useState(true);
-
-  let list = useAsyncList({
-    async load({ signal }) {
-      let res = await fetch("https://swapi.py4e.com/api/people/?search", {
-        signal,
-      });
-      let json = await res.json();
-      setIsLoading(false);
-
-      return {
-        items: json.results,
-      };
-    },
-    async sort({ items, sortDescriptor }) {
-      return {
-        items: items.sort((a, b) => {
-          let first = a[sortDescriptor.column];
-          let second = b[sortDescriptor.column];
-          let cmp =
-            (parseInt(first) || first) < (parseInt(second) || second) ? -1 : 1;
-
-          if (sortDescriptor.direction === "descending") {
-            cmp *= -1;
-          }
-
-          return cmp;
-        }),
-      };
-    },
-  });
-
   return (
-    <Table
-      aria-label="Example table with client side sorting"
-      removeWrapper
-      sortDescriptor={list.sortDescriptor}
-      onSortChange={list.sort}
-      classNames={{
-        table: "min-h-[400px]",
-      }}
-      color="primary"
-      selectionMode="single"
-    >
-      <TableHeader>
-        <TableColumn
-          key="name"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          University
-        </TableColumn>
-        <TableColumn
-          key="height"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          Semester
-        </TableColumn>
-        <TableColumn
-          key="mass"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          Fee ($)
-        </TableColumn>
-        <TableColumn
-          key="mass"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          Username
-        </TableColumn>
-        <TableColumn
-          key="mass"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          Password
-        </TableColumn>
-        <TableColumn
-          key="birth_year"
-          allowsSorting
-          className="bg-sky-600 text-white text-md"
-        >
-          Status
-        </TableColumn>
+    <Table removeWrapper>
+      <TableHeader columns={columns}>
+        {(column) => (
+          <TableColumn className="bg-sky-600 text-white" key={column.key}>
+            {column.label}
+          </TableColumn>
+        )}
       </TableHeader>
-      <TableBody
-        items={list.items}
-        isLoading={isLoading}
-        loadingContent={<Spinner label="Loading..." />}
-      >
+      <TableBody items={rows}>
         {(item) => (
-          <TableRow key={item.name}>
-            {(columnKey) => (
-              <TableCell>{getKeyValue(item, columnKey)}</TableCell>
-            )}
+          <TableRow key={item.key}>
+            <TableCell><p>{getKeyValue(item, "university")}</p></TableCell>
+            <TableCell><p>{getKeyValue(item, "semester")}</p></TableCell>
+            <TableCell><p>${getKeyValue(item, "fee")}</p></TableCell>
+            <TableCell><p>{getKeyValue(item, "username")}</p></TableCell>
+            <TableCell><p>{getKeyValue(item, "password")}</p></TableCell>
+            <TableCell size="auto"><p className="text-white bg-green-600 w-fit px-2 py-1 rounded-lg">{getKeyValue(item, "status")}</p></TableCell>
           </TableRow>
         )}
       </TableBody>

@@ -1,35 +1,38 @@
 import React from "react";
-import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure} from "@nextui-org/react";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+  Input,
+} from "@nextui-org/react";
 
 export const AddUniversity = () => {
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Button color="primary" fullWidth onPress={onOpen}>+ Add</Button>
+      <Button color="primary" fullWidth onPress={onOpen}>
+        + Add
+      </Button>
       <Modal isOpen={isOpen} isDismissable={false} onOpenChange={onOpenChange}>
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1">Modal Title</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1">
+                Add University
+              </ModalHeader>
               <ModalBody>
-                <p> 
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Nullam pulvinar risus non risus hendrerit venenatis.
-                  Pellentesque sit amet hendrerit risus, sed porttitor quam.
-                </p>
-                <p>
-                  Magna exercitation reprehenderit magna aute tempor cupidatat consequat elit
-                  dolor adipisicing. Mollit dolor eiusmod sunt ex incididunt cillum quis. 
-                  Velit duis sit officia eiusmod Lorem aliqua enim laboris do dolor eiusmod. 
-                  Et mollit incididunt nisi consectetur esse laborum eiusmod pariatur 
-                  proident Lorem eiusmod et. Culpa deserunt nostrud ad veniam.
-                </p>
+                <form className="space-y-2">
+                  <Input variant="underlined" label="University Name" />
+                  <Input variant="underlined" label="Semester"/>
+                  <Input variant="underlined" label="Application Fee ($)"/>
+                  <Input variant="underlined" label="Username"/>
+                  <Input variant="underlined" label="Password"/>
+                </form>
               </ModalBody>
               <ModalFooter>
                 <Button color="danger" variant="light" onClick={onClose}>
@@ -45,4 +48,4 @@ export const AddUniversity = () => {
       </Modal>
     </>
   );
-}
+};

@@ -12,7 +12,7 @@ import {
           shadow
           className="gradient text-white"
         >
-          <CardBody className="flex flex-wrap flex-row gap-5 p-6 items-center">
+          <CardBody className="flex flex-wrap flex-row gap-5 p-6 items-center justify-center">
             <Image
               src="https://picsum.photos/200/200"
               width={200}

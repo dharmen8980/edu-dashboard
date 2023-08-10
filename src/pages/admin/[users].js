@@ -14,7 +14,7 @@ export default User;
 export const getServerSideProps = async (context) => {
   const {query} = context;
   const user = query.users;
-  const res = await fetch(`http:localhost:3000/api/listUni?users=${user}`);
+  const res = await fetch(`https://edu-dashboard-blue.vercel.app/api/listUni?users=${user}`);
   const data = await res.json();
   console.log(data);
   return {

@@ -14,8 +14,4 @@ const statusOptions = [
   {name: "Vacation", uid: "vacation"},
 ];
 
-let list = await fetch("https://edu-dashboard-blue.vercel.app/api/hello");
-let data = await list.json();
-let users = data.results;
-
-export {columns, users, statusOptions};
+export {columns, statusOptions};

@@ -21,7 +21,7 @@ import { PlusIcon } from "@/components/PlusIcon";
 import { VerticalDotsIcon } from "@/components/VerticalDotsIcon";
 import { SearchIcon } from "@/components/SearchIcon";
 import { ChevronDownIcon } from "@/components/ChevronDownIcon";
-import { columns, users, statusOptions } from "@/components/data";
+import { columns, statusOptions } from "@/components/data";
 import { capitalize } from "@/components/utils";
 
 const statusColorMap = {
@@ -30,7 +30,7 @@ const statusColorMap = {
   vacation: "warning",
 };
 
-export default function App() {
+export default function App({users}) {
   const [filterValue, setFilterValue] = React.useState("");
   const [selectedKeys, setSelectedKeys] = React.useState(new Set([]));
   const [statusFilter, setStatusFilter] = React.useState("all");
@@ -205,9 +205,9 @@ export default function App() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          {/* <span className="text-default-400 text-small">
-            Total {users && users.length} users
-          </span> */}
+          <span className="text-default-400 text-small">
+            Total {users.length} users
+          </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
@@ -328,3 +328,11 @@ export default function App() {
     </div>
   );
 }
+
+export const getServerSideProps = async () => {
+  const res = await fetch(`https://edu-dashboard-blue.vercel.app/api/hello`);
+  const data = await res.json();
+  return {
+    props: {users:data.results}
+  };
+};

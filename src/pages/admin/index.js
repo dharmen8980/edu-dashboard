@@ -205,9 +205,9 @@ export default function App() {
           </div>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-default-400 text-small">
+          {/* <span className="text-default-400 text-small">
             Total {users && users.length} users
-          </span>
+          </span> */}
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
             <select
